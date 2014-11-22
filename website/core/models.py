@@ -17,7 +17,8 @@ class Patient(models.Model):
     location = models.ForeignKey('Location')
 
     def __unicode__(self):
-        return u'<Patient %s>' % self.user.get_full_name()
+        name = self.user.get_full_name() or self.user.get_username()
+        return u'<Patient %s>' % name
 
 
 class Doctor(models.Model):
@@ -25,7 +26,8 @@ class Doctor(models.Model):
     user = models.OneToOneField(User)
 
     def __unicode__(self):
-        return u'<Doctor %s>' % self.user.get_full_name()
+        name = self.user.get_full_name() or self.user.get_username()
+        return u'<Doctor %s>' % name
 
 
 class Nurse(models.Model):
@@ -33,7 +35,8 @@ class Nurse(models.Model):
     user = models.OneToOneField(User)
 
     def __unicode__(self):
-        return u'<Nurse %s>' % self.user.get_full_name()
+        name = self.user.get_full_name() or self.user.get_username()
+        return u'<Nurse %s>' % name
 
 
 class FamilyMember(models.Model):
@@ -46,7 +49,7 @@ class FamilyMember(models.Model):
     phone = models.CharField(max_length=10)
 
     def __unicode__(self):
-        return u'<Family Member %s>' % self.user.get_full_name()
+        return u'<Family Member %s>' % name
 
 
 class Event(models.Model):
@@ -84,4 +87,13 @@ class Location(models.Model):
 
     def __unicode__(self):
         return u'<Location %s>' % self.name
+
+    def to_dict(self):
+        obj = {
+            'id': self.pk,
+            'name': self.name,
+            'description': self.description,
+        }
+
+        return obj
 
