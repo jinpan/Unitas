@@ -55,3 +55,4 @@ target/
 
 ENV/*
 website/ENV/*
+*.sw[a-p]
