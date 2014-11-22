@@ -20,6 +20,13 @@ class Patient(models.Model):
         name = self.user.get_full_name() or self.user.get_username()
         return u'<Patient %s>' % name
 
+    def to_dict(self):
+        obj = {
+            'id': self.pk,
+            'name': self.user.get_full_name(),
+        }
+        return obj
+
 
 class Doctor(models.Model):
 
@@ -69,6 +76,22 @@ class Event(models.Model):
     def __unicode__(self):
         return u'<Event %s>' % self.name
 
+    def to_dict(self):
+        obj = {
+            'id': self.pk,
+            'starttime': self.starttime,
+            'endtime': self.endtime,
+            'duration': (self.endtime - self.starttime).seconds,
+            'name': self.name,
+            'description': self.description,
+            'notes': self.notes,
+            'flagged': self.flagged,
+            'event_type': self.event_type.to_dict(),
+            'location': self.location.to_dict(),
+            'patient': self.patient.to_dict(),
+        }
+        return obj
+
 
 class EventType(models.Model):
 
@@ -78,6 +101,14 @@ class EventType(models.Model):
 
     def __unicode__(self):
         return u'<Event Type %s>' % self.name
+
+    def to_dict(self):
+        obj = {
+            'id': self.pk,
+            'name': self.name,
+            'color': self.color,
+        }
+        return obj
 
 
 class Location(models.Model):
