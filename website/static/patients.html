@@ -3,6 +3,12 @@
     <head>
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <style>
+        .time-block{ 
+           /* height: 100px; */
+            width: 100%;
+        }
+      </style> 
     </head>
     
     <body>
@@ -12,15 +18,44 @@
 
     <div class="container"> <div class='section'>
           <div class="row"> 
-            <center> 
+              <div class="col s12 offset-m4 m1">
                 <i class="mdi-hardware-keyboard-arrow-left" style="font-size: 5em;"> </i> 
+              </div>
+              <div class="col s12 m2" style="padding-top: 30">
+                <center>
                 <span class="flow-text"> Date </span> 
+              </center>
+              </div>
+              <div class="col s12 m3"> 
                 <i class="mdi-hardware-keyboard-arrow-right" style="font-size: 5em;"> </i> 
-            </center> 
+              </div>
           </div> 
 
           <div class="row"> 
-            <a href="#" class="waves-effect waves-light btn-large" style="height: 100px">Button</a>
+            <div class="col s12 m2" >
+                <hr>
+                <p>12:00 AM</p> <hr>
+
+                <p>1:00 AM</p> <hr> 
+                <p>2:00 AM</p> <hr> 
+                <p>3:00 AM</p> <hr> 
+                <p>4:00 AM</p> <hr> 
+                <p>5:00 AM</p> <hr> 
+                <p>6:00 AM</p> <hr> 
+                <p>7:00 AM</p> <hr> 
+                <p>8:00 AM</p> <hr> 
+                <p>9:00 AM</p> <hr> 
+                <p>10:00 AM</p> <hr> 
+                <p>11:00 AM</p> <hr> 
+                <p>12:00 PM</p> <hr> 
+            </div>
+            <div class="col s12 m10" style="padding-top:7px">
+                <a href="#" class="waves-effect waves-light btn-large time-block" style="height: 100px">Button</a>
+                <a href="#" class="waves-effect waves-light btn-large time-block" style="height: 50px; background-color:orange">Event name</a>
+
+            </div>
+
+
           </div>
 
     </div> </div>
