@@ -3,8 +3,9 @@ from django.db import models
 
 
 class Patient(models.Model):
+    user = models.OneToOneField(User)
 
-    SSN = models.CharField(max_length=9)
+    SSN = models.CharField(max_length=9, unique=True)
 
     doctors = models.ManyToManyField('Doctor')
     nurses = models.ManyToManyField('Nurse')
