@@ -53,9 +53,17 @@ def get_doctors(request):
 
     doctors = []
     for doctor in Doctor.objects.all():
-        doctors.append(Doctor.to_dict())
+        doctors.append(doctor.to_dict())
 
     return JSONResponse(doctors)
+
+def get_nurses(request):
+
+    nurses = []
+    for nurse in Nurse.objects.all():
+        nurses.append(nurse.to_dict())
+
+    return JSONResponse(nurses)
 
 @login_required(login_url='/accounts/login2')
 def get_events(request):
