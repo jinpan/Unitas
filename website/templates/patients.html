@@ -124,16 +124,16 @@
       var populateCal = function($date){
         //alert($date)
 
-        // $.ajax({
-        //   url: "/api/events",
-        //   data: $date,
-        //   success: function(data){ 
-        //     var result = JSON.parse(data);
-        //   }, 
+        $.ajax({
+          url: "/api/events",
+          data: $date,
+          success: function(data){ 
+            var result = JSON.parse(data);
+          }, 
 
-        //   dataType: JSON
-        // });
-        var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 01:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 00:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 02:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "heart sursdffgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false}]')//Temp
+          dataType: JSON
+        });
+        // var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 01:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 00:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 02:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "heart sursdffgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false}]')//Temp
         console.log(result)
 
         var lastTime = 0;
