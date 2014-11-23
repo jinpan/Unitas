@@ -39,6 +39,14 @@ def get_locations(request):
 
     return JSONResponse(locations)
 
+def get_doctors(request):
+
+    doctors = []
+    for doctor in Doctor.objects.all():
+        doctors.append(Doctor.to_dict())
+
+    return JSONResponse(doctors)
+
 @login_required(login_url='/accounts/login2')
 def get_events(request):
     # request will contain date if patient; date and patient id if nurse/doctor
