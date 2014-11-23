@@ -1,0 +1,146 @@
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="../static/css/jquery.datetimepicker.css"/ >
+        <link type="text/css" rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection">
+  
+
+        <title>Add Event
+        </title>
+
+        <style> 
+            .row{ 
+                padding-bottom: 10px;
+
+            }
+            .date { 
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid #bdbdbd;
+                outline: none;
+                height: 3rem;
+                width: 100%;
+                font-size: 1rem;
+                margin: 0 0 15px 0;
+                padding: 0;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+                -webkit-box-sizing: content-box;
+                -moz-box-sizing: content-box;
+                box-sizing: content-box;
+                -webkit-transition: 0.3s;
+                -moz-transition: 0.3s;
+                -o-transition: 0.3s;
+                -ms-transition: 0.3s;
+                transition: 0.3s;
+            }
+        </style> 
+    </head>
+
+    <body style="padding-top:30px">
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="../static/js/materialize.js"></script>
+        <script src="../static/js/datetimepicker.js"></script>
+        <!--div id="input" class="scrollspy">
+            <h4 class="header light" style="padding-left: 20px">Add a family member</h4>
+        </div-->
+        <div class="container"> <div class="section"> 
+          <h3> Add an Event </h3> 
+        <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="input1" type="text" required>
+              <label id="label1">Event Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="input2" type="text" required>
+              <label id="label2">Location</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="input4" type="text" required>
+              <label id="label4">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="input5" type="text" required>
+              <label id="label5">Doctor</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input class="date" id="datetimepicker" type="dateTime" required>
+              <label id="ldatetimepicker">Start Time</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input class="date" id="datetimepicker2" type="dateTime" required>
+              <label id="ldatetimepicker2">End Time</label>
+            </div>
+          </div>
+        </form>
+        <a href="#" class="waves-effect waves-ripple btn flat modal_close">Add Event</a>
+
+        </div>
+
+    </div></div>
+
+    </body>
+    <script>
+/*
+StartTime
+EndTime
+  
+*/    
+        $(document).ready(function(){ 
+
+          $('#datetimepicker').datetimepicker();
+          $('#datetimepicker2').datetimepicker();
+        })
+
+        $('input').each(function (i, e){
+            $(this).focusout(function(e) {
+                //console.log($(this));
+                var i = $(this).attr('id').substr(5);
+                if (this.value=="") {
+                    $("#label" + i.toString()).removeClass("active");
+                }
+            });
+            $(this).focus(function(e) {
+                var  i = $(this).attr('id').substr(5);
+                $("#label" + i.toString()).addClass("active");              
+            }); 
+        });
+
+
+    $("#datetimepicker").focusout(function(e) {if (this.value=="") { $("#ldatetimepicker").removeClass("active"); }});
+    $("#datetimepicker").focus(function(e) { $("#ldatetimepicker").addClass("active"); });           
+
+    $("#datetimepicker2").focusout(function(e) { if (this.value=="") { $("#ldatetimepicker2").removeClass("active"); }});
+    $("#datetimepicker2").focus(function(e) { $("#ldatetimepicker2").addClass("active"); }); 
+    
+/*
+    $("#input1").focusout(function(e) { if (this.value=="") { $("#label1").removeClass("active"); }});
+    $("#input1").focus(function(e) { $("#label1").addClass("active"); });           
+
+    $("#input2").focusout(function(e) { if (this.value=="") { $("#label2").removeClass("active"); }});
+    $("#input2").focus(function(e) { $("#label2").addClass("active"); });
+
+    $("#input3").focusout(function(e) { if (this.value=="") { $("#label3").removeClass("active"); }});
+    $("#input3").focus(function(e) { $("#label3").addClass("active"); });
+
+    $("#input4").focusout(function(e) { if (this.value=="") { $("#label4").removeClass("active"); }});
+    $("#input4").focus(function(e) { $("#label4").addClass("active"); });
+
+    $("#input5").focusout(function(e) { if (this.value=="") { $("#label5").removeClass("active"); }});
+    $("#input5").focus(function(e) { $("#label5").addClass("active"); });
+*/
+    </script>
+</html>
+
