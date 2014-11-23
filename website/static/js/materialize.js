@@ -809,7 +809,7 @@ jQuery.extend( jQuery.easing,
         duration: 500,
 
         show: function(e) {
-            
+
             // Disable right click
             if (e.button === 2) {
               return false;
@@ -982,6 +982,7 @@ jQuery.extend( jQuery.easing,
     };
 
     Waves.displayEffect = function(options) {
+                	console.log("WAVE");
 
         options = options || {};
 
