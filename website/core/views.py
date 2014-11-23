@@ -41,8 +41,12 @@ def get_locations(request):
 
 @login_required(login_url='/accounts/login2')
 def get_events(request):
-    # request will contain patient id, date
+    # request will contain date if patient; date and patient id if nurse/doctor
     p_id = request.GET.get('patient_id')
+    if p_id is None:
+        patients = Patient.objects.filter(user=request.user):
+        if patients:
+            p_id = patients[0].pk
     date = request.GET.get('date')
     if p_id is None or date is None:
         return JSONResponse([])

@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection">
+		<title>Add Family Member
+		</title>
+
+		<style> 
+			.row{ 
+				padding-bottom: 10px;
+
+			}
+		</style> 
+	</head>
+
+	<body style="padding-top:30px">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../static/js/materialize.js"></script>
+		<!--div id="input" class="scrollspy">
+			<h4 class="header light" style="padding-left: 20px">Add a family member</h4>
+		</div-->
+		<div class="container"> <div class="section"> 
+		<div class="row">
+		<form class="col s12">
+		  <div class="row">
+		    <div class="input-field col s6">
+		      <input id="input1" type="text" required>
+		      <label id="label1">First Name</label>
+		    </div>
+		    <div class="input-field col s6">
+		      <input id="input2" type="text" required>
+		      <label id="label2">Last Name</label>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="input-field col s12">
+		      <input id="input3" type="email" required>
+		      <label id="label3">Email</label>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="input-field col s12">
+		      <input id="input4" type="text" required>
+		      <label id="label4">Phone</label>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="input-field col s12">
+		      <input id="input5" type="text" required>
+		      <label id="label5">Patient</label>
+		    </div>
+		  </div>
+		</form>
+		</div>
+	</div></div>
+	</body>
+	<script>
+
+	/*
+		for (var i=0; i<6; i++) {
+	    	$("#input" + i.toString()).focusout(function(e) {
+	    		if (this.value=="") {
+		    		$("#label" + i.toString()).removeClass("active");
+	    		}
+	    	});
+		}
+		for (var i=0; i<6; i++) {
+			console.log(i);
+	    	$("#input" + i.toString()).focus(function(e) {
+	    		console.log("#label" + i.toString());
+		    	$("#label" + i.toString()).addClass("active");    			
+	    	});			
+		}
+	*/
+
+	$("#input1").focusout(function(e) { if (this.value=="") { $("#label1").removeClass("active"); }});
+	$("#input1").focus(function(e) { $("#label1").addClass("active"); });			
+
+	$("#input2").focusout(function(e) { if (this.value=="") { $("#label2").removeClass("active"); }});
+	$("#input2").focus(function(e) { $("#label2").addClass("active"); });
+
+	$("#input3").focusout(function(e) { if (this.value=="") { $("#label3").removeClass("active"); }});
+	$("#input3").focus(function(e) { $("#label3").addClass("active"); });
+
+	$("#input4").focusout(function(e) { if (this.value=="") { $("#label4").removeClass("active"); }});
+	$("#input4").focus(function(e) { $("#label4").addClass("active"); });
+
+	$("#input5").focusout(function(e) { if (this.value=="") { $("#label5").removeClass("active"); }});
+	$("#input5").focus(function(e) { $("#label5").addClass("active"); });
+
+    </script>
+</html>
+
