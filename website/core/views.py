@@ -44,7 +44,7 @@ def get_events(request):
     # request will contain date if patient; date and patient id if nurse/doctor
     p_id = request.GET.get('patient_id')
     if p_id is None:
-        patients = Patient.objects.filter(user=request.user):
+        patients = Patient.objects.filter(user=request.user)
         if patients:
             p_id = patients[0].pk
     date = request.GET.get('date')
@@ -65,9 +65,9 @@ def get_patients(request):
     patients = []
 
     if d_id is not None:
-        patients = Patient.objects.filter(doctors=Doctor.objects.get(pk=d_id))
+        patients = Patient.objects.filter(doctors=Doctor.objects.get(pk=d_id)).order_by('user__last_name')
     elif n_id is not None:
-        patients = Patient.objects.filter(nurses=Nurse.objects.get(pk=n_id))
+        patients = Patient.objects.filter(nurses=Nurse.objects.get(pk=n_id)).order_by('user__last_name')
     else:
         patients = []
 
