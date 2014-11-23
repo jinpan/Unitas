@@ -7,7 +7,8 @@
         .time-block{ 
            /* height: 100px; */
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
+            margin-top: 0px;
             line-height: 35px;
         }
       </style> 
@@ -21,7 +22,7 @@
     <div class="container"> <div class='section' id="cal">
           <div class="row"> 
               <div class="col s12 offset-m4 m1">
-                <i class="mdi-hardware-keyboard-arrow-left" style="font-size: 5em;"> </i> 
+                <i id="previous" class="mdi-hardware-keyboard-arrow-left" style="font-size: 5em; cursor: pointer"> </i> 
               </div>
               <div class="col s12 m2" style="padding-top: 30">
                 <center>
@@ -29,7 +30,7 @@
               </center>
               </div>
               <div class="col s12 m3"> 
-                <i class="mdi-hardware-keyboard-arrow-right" style="font-size: 5em;"> </i> 
+                <i id="next" class="mdi-hardware-keyboard-arrow-right" style="font-size: 5em; cursor: pointer"> </i> 
               </div>
           </div> 
 
@@ -82,20 +83,45 @@
  
     </body>
     <script> 
-      $(document).ready(function(){
+      $("#next").click(function(){ 
 
-        // $.getJSON("/api/events?patient_id=2&date=11%2F22%2F2014",function(result){
-        //   console.log(result)
+        console.log("next")
+        $("#events").fadeOut().children().remove(); 
 
-        //   console.log(result)
-        // // $.each(result, function(i, field){
-        // //   $("div").append(field + " ");
-        // //    });
-        // });
+          d.setDate(d.getDate()+1);
+          nextDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
 
-        var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 02:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 03:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "heart sursdffgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 02:00:00+00:00", "flagged": false}]')//Temp
+          populateCal(nextDate)
+          $("#events").fadeIn(); 
+      })
+
+      $("#previous").click(function(){ 
+
+        console.log("previous")
+        $("#events").fadeOut().children().remove(); 
+
+          d.setDate(d.getDate()-1);
+          nextDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
+
+          populateCal(nextDate)
+          $("#events").fadeIn(); 
+      })
+
+
+      var populateCal = function($date){
+        //alert($date)
+
+        $.ajax({
+          url: "/api/events",
+          data: $date,
+          success: function(data){ 
+            var result = JSON.parse(data);
+          }, 
+
+          dataType: JSON
+        });
+        // var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 01:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 00:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 02:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "heart sursdffgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false}]')//Temp
         console.log(result)
-
 
         var lastTime = 0;
 
@@ -116,23 +142,43 @@
           console.log(lastTime)
 
           //Make button
-          var html ='<a  class="waves-effect btn-large time-block modal-trigger" id="event'+field.id +'" href="#' +field.id +' ">'+ field.name +'</a>'
-          $('#events').append(html)
+          var html ='<a  class="waves-effect btn-large time-block modal-trigger" id="event'+field.id +'" href="#' +field.id +' ">'+ field.name +' | ' + field.location.name + '</a>'
+          $('#events').append(html).hide()
 
           $('#event'+field.id).css("background-color",field.event_type.color)
           $('#event'+field.id).css("height", field.duration/(60)*.65 +'px')
-          $('#event'+field.id).css("margin-top", timeSinceLastEvent/(60)*.65 +'px')
-
+          $('#event'+field.id).css("margin-top", timeSinceLastEvent/(60)*.67 +10 +'px')
+          console.log(timeSinceLastEvent/(60)*.65)
 
 
           //Make Modal for description
-          var modalhtml = '<div id="'+ field.id +'" class="modal">  <h4>' + field.name + '</h4> <p> '+field.description + '</p><a href="#" class="waves-effect waves-ripple btn flat modal_close">Close</a> </div>'
+          var modalhtml = '<div id="'+ field.id +'" class="modal">  <h4>' + field.name + ' | ' + field.location.description +'</h4> <p> '+field.description + '</p><a href="#" class="waves-effect waves-ripple btn flat modal_close">Close</a> </div>'
 
           $('#cal').append(modalhtml)
           lastTime = endTimeMinutes;
 
       }); 
+      }
 
+      var d = new Date(); 
+      
+      $(document).ready(function(){
+
+        // $.getJSON("/api/events?patient_id=2&date=11%2F22%2F2014",function(result){
+        //   console.log(result)
+
+        //   console.log(result)
+        // // $.each(result, function(i, field){
+        // //   $("div").append(field + " ");
+        // //    });
+        // });
+
+        currentDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
+        populateCal(currentDate)
+
+
+
+        $("#events").fadeIn(); 
         //for events
         $('.modal-trigger').leanModal();
       });
