@@ -2,7 +2,8 @@
     <head>
       <link rel="stylesheet" type="text/css" href="../static/css/jquery.datetimepicker.css"/ >
         <link type="text/css" rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection">
-  
+          <link type="text/css" rel="stylesheet" hr­ef="../static/css/autocomplete.css"/>
+
 
         <title>Add Event
         </title>
@@ -42,6 +43,7 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="../static/js/materialize.js"></script>
         <script src="../static/js/datetimepicker.js"></script>
+        <script sr­c="../static/js/autocomplete.js"></script>
         <!--div id="input" class="scrollspy">
             <h4 class="header light" style="padding-left: 20px">Add a family member</h4>
         </div-->
@@ -97,11 +99,13 @@
 StartTime
 EndTime
   
-*/    
+*/ 
+
         $(document).ready(function(){ 
 
           $('#datetimepicker').datetimepicker();
           $('#datetimepicker2').datetimepicker();
+
         })
 
         $('input').each(function (i, e){
