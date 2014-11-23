@@ -24,6 +24,10 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATE_DIRS = [
+    os.path.join(BASE_DIR, 'website', 'templates')
+]
+
 ALLOWED_HOSTS = []
 
 
@@ -36,6 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions',
+
+    'shell_plus',
 
     'core',
 )
