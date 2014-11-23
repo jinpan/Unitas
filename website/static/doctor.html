@@ -1,0 +1,52 @@
+
+  <html>
+    <head>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    </head>
+    
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.js"></script>
+
+    <div class="container"> <div class='section' id="cal">
+          <div class="row">    
+            <h3> Welcome Doctor </h3>        
+            <p class="caption"> Patients: </p> 
+            <div class="collection" id = "patients">
+
+            </div>
+          </div>
+ 
+        </div></div>
+
+ 
+    </body>
+
+    <script> 
+      //Make ajax request
+              // $.ajax({
+        //   url: "/api/patients",
+        //   data: doctor,
+        //   success: function(data){ 
+        //     var result = JSON.parse(data);
+        //   }, 
+
+        //   dataType: JSON
+        // });
+
+        console.log(result)
+
+        var result = JSON.parse('[{"name": "wreka"},  {"name": "asdfasdf"}   ]')//Temp
+        var lastTime = 0;
+
+        $.each(result, function(i, field){ 
+            var html = '<a href="/'+field.name+'" class="collection-item">'+field.name+'</a>'     
+            $('#patients').append(html)     
+
+         });
+
+    </script> 
+  </html>

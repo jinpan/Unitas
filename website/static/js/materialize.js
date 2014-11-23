@@ -982,7 +982,6 @@ jQuery.extend( jQuery.easing,
     };
 
     Waves.displayEffect = function(options) {
-                	console.log("WAVE");
 
         options = options || {};
 
@@ -994,12 +993,15 @@ jQuery.extend( jQuery.easing,
         Effect.wrapInput($$('.waves-effect'));
 
         Array.prototype.forEach.call($$('.waves-effect'), function(i) {
+        	                	
 
         if ('ontouchstart' in window) {
+
           i.addEventListener('mouseup', Effect.hide, false);		              i.addEventListener('touchstart', Effect.show, false);
           i.addEventListener('mouseleave', Effect.hide, false);		              i.addEventListener('touchend',   Effect.hide, false);
           i.addEventListener('touchcancel',   Effect.hide, false);
         } else {
+        	
           i.addEventListener('mousedown', Effect.show, false);
           i.addEventListener('mouseup', Effect.hide, false);
           i.addEventListener('mouseleave', Effect.hide, false);
@@ -1008,7 +1010,7 @@ jQuery.extend( jQuery.easing,
         });
 
     };
-
+console.log("WAVE");
     window.Waves = Waves;
     Waves.displayEffect();
 
