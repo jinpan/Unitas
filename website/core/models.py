@@ -92,6 +92,9 @@ class Event(models.Model):
         }
         return obj
 
+    def set_flagged(self, bool):
+        self.flagged = bool
+        self.save()
 
 class EventType(models.Model):
 
