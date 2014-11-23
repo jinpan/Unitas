@@ -93,7 +93,7 @@
         // //    });
         // });
 
-        var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 23:01:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false}]')//Temp
+        var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 02:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 03:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "heart sursdffgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 02:00:00+00:00", "flagged": false}]')//Temp
         console.log(result)
 
 
@@ -111,15 +111,26 @@
           var timeSinceLastEvent = startTimeMinutes - lastTime
 
 
-          console.log(endTimeMinutes)
+          console.log(field.name)
           console.log(startTimeMinutes)
-          var html ='<a  class="waves-effect btn-large time-block modal-trigger" href="#' +field.id +' " style="height: ' + field.duration/(60)*.6 + 'px; background-color:#'+field.event_type.color + ' ; margin-top:'+ timeSinceLastEvent/(60)*.6 +'px">'+ field.name +'</a>'
+          console.log(lastTime)
+
+          //Make button
+          var html ='<a  class="waves-effect btn-large time-block modal-trigger" id="event'+field.id +'" href="#' +field.id +' ">'+ field.name +'</a>'
           $('#events').append(html)
 
+          $('#event'+field.id).css("background-color",field.event_type.color)
+          $('#event'+field.id).css("height", field.duration/(60)*.65 +'px')
+          $('#event'+field.id).css("margin-top", timeSinceLastEvent/(60)*.65 +'px')
+
+
+
+          //Make Modal for description
           var modalhtml = '<div id="'+ field.id +'" class="modal">  <h4>' + field.name + '</h4> <p> '+field.description + '</p><a href="#" class="waves-effect waves-ripple btn flat modal_close">Close</a> </div>'
 
           $('#cal').append(modalhtml)
           lastTime = endTimeMinutes;
+
       }); 
 
         //for events
