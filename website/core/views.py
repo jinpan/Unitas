@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.http import Http404
 from django.http import HttpResponse
 
 from core.models import Doctor
@@ -28,6 +29,15 @@ def login(request):
 
 def JSONResponse(data):
     return HttpResponse(dumps(data), content_type='application/json')
+
+
+@login_required
+def add_event(request):
+    if (Doctor.objects.filter(user=request.user)
+            or Nurse.objects.filter(user=request.user)):
+        return render(request, 'add_event.html')
+    else:
+        raise Http404
 
 
 @login_required
