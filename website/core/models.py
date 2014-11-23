@@ -56,6 +56,7 @@ class FamilyMember(models.Model):
     phone = models.CharField(max_length=10)
 
     def __unicode__(self):
+        name = self.user.get_full_name() or self.user.get_username()
         return u'<Family Member %s>' % name
 
 
