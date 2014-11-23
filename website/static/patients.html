@@ -63,6 +63,10 @@
                 <p>10:00 PM</p> <hr> 
                 <p>11:00 PM</p> <hr> 
             </div>
+
+            <div class="col s12 m10" style="padding-top:7px" id="loading" hidden >
+              <center> <img src="http://i.imgur.com/fxlB1oq.gif" /> </center>
+            </div>
             <div class="col s12 m10" style="padding-top:7px" id="events">
                 <!-- <a  class="waves-effect btn-large time-block modal-trigger" href="#event" style="height: 100px">Button</a>
                 <a  class="waves-effect btn-large time-block modal-trigger" href="#event" style="height: 100px" hidden>Button</a>
@@ -86,28 +90,34 @@
       $("#next").click(function(){ 
 
         console.log("next")
-        $("#events").fadeOut().children().remove(); 
+        $("#loading").fadeIn();
 
+        $("#events").fadeOut(60).children().remove(); 
           d.setDate(d.getDate()+1);
           nextDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
           $("#date").html("Date <br>  " + nextDate)
 
           populateCal(nextDate)
-          $("#events").fadeIn();
+          $("#loading").hide();
+
+          $("#events").fadeIn(60);
 
       })
 
       $("#previous").click(function(){ 
 
         console.log("previous")
-        $("#events").fadeOut().children().remove(); 
+        $("#loading").fadeIn();
+
+        $("#events").fadeOut(30).children().remove(); 
 
           d.setDate(d.getDate()-1);
           nextDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
           $("#date").html("Date <br>  " + nextDate)
 
           populateCal(nextDate)
-          $("#events").fadeIn(); 
+          $("#loading").hide();
+          $("#events").fadeIn(30); 
       })
 
 
