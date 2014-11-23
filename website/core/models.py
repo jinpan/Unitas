@@ -79,8 +79,8 @@ class Event(models.Model):
     def to_dict(self):
         obj = {
             'id': self.pk,
-            'starttime': self.starttime,
-            'endtime': self.endtime,
+            'starttime': str(self.starttime),
+            'endtime': str(self.endtime),
             'duration': (self.endtime - self.starttime).seconds,
             'name': self.name,
             'description': self.description,
