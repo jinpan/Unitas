@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+    <h1>Login</h1>
+    <form method='post' action="?next={{next|default:'/'}}">
+        {% csrf_token %}
+        <input type="password" placeholder="ssn", name="ssn">
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
