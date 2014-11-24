@@ -112,3 +112,7 @@ def flag_off(request):
     event = Event.objects.get(pk=e_id)
     event.set_flag(False)
     return HttpResponse('')
+
+@login_required(login_url='/accounts/login2')
+def patient_view(request):
+    return render(request, 'patients.html')
