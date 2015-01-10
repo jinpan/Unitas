@@ -2,7 +2,7 @@
   <html>
     <head>
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/materialize.min.css"  media="screen,projection"/>
       <style>
         .time-block{ 
            /* height: 100px; */
@@ -17,16 +17,16 @@
     <body>
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.js"></script>
+      <script type="text/javascript" src="{{STATIC_URL}}js/materialize.js"></script>
 
     <div class="container"> <div class='section' id="cal">
           <div class="row"> 
               <div class="col s12 offset-m4 m1">
                 <i id="previous" class="mdi-hardware-keyboard-arrow-left" style="font-size: 5em; cursor: pointer"> </i> 
               </div>
-              <div class="col s12 m2" style="padding-top: 20">
+              <div class="col s12 m2" style="padding-top: 30">
                 <center>
-                <span class="flow-text" id="date"> Date </span> 
+                <span class="flow-text" id="date"> </span> 
               </center>
               </div>
               <div class="col s12 m3"> 
@@ -95,9 +95,9 @@
         $("#events").fadeOut(60).children().remove(); 
           d.setDate(d.getDate()+1);
           nextDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
-          $("#date").html("Date <br>  " + nextDate)
+          $("#date").html(nextDate)
 
-          populateCal(nextDate)
+          populateCal(nextDate);
           $("#loading").hide();
 
           $("#events").fadeIn(60);
@@ -113,7 +113,7 @@
 
           d.setDate(d.getDate()-1);
           nextDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
-          $("#date").html("Date <br>  " + nextDate)
+          $("#date").html( nextDate)
 
           populateCal(nextDate)
           $("#loading").hide();
@@ -126,51 +126,50 @@
 
         $.ajax({
           url: "/api/events",
-          data: $date,
-          success: function(data){ 
-            var result = JSON.parse(data);
-          }, 
+          data: {"date": $date},
+          success: function(result){
+            var lastTime = 0;
 
-          dataType: JSON
+            console.log(result);
+
+              for (var i=0; i<result.length; i++) {
+                var field = result[i];
+                console.log(field); console.log(i);
+                var endTime = field.endtime.slice(11,16).split(":");
+                var endTimeMinutes = endTime[0]*60 + endTime[1]
+
+                var startTime = field.starttime.slice(11,16).split(":")
+                var startTimeMinutes = startTime[0]*60 + startTime[1]
+
+                var timeSinceLastEvent = startTimeMinutes - lastTime
+
+                console.log(field.name); console.log(startTimeMinutes); console.log(lastTime)
+
+                //Make button
+                var html ='<a  class="waves-effect btn-large time-block modal-trigger" id="event'+field.id +'" href="#' +field.id +' ">'+ field.name +' | ' + field.location.name + '</a>'
+                $('#events').append(html).hide()
+
+                $('#event'+field.id).css("background-color",field.event_type.color)
+                $('#event'+field.id).css("height", field.duration/(60)*.65 +'px')
+                $('#event'+field.id).css("margin-top", timeSinceLastEvent/(60)*.67 +10 +'px')
+                console.log(timeSinceLastEvent/(60)*.65)
+
+
+                //Make Modal for description
+                var modalhtml = '<div id="'+ field.id +'" class="modal">  <h4>' + field.name + ' | ' + field.location.description +'</h4> <p> '+field.description + '</p><a href="#" class="waves-effect btn flat modal_close"> Close</a> </div>'
+
+                $('#cal').append(modalhtml)
+                lastTime = endTimeMinutes;
+              $("#events").fadeIn(); 
+
+            };
+            $('.modal-trigger').leanModal();
+          }
         });
-        // var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 01:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 00:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 02:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "heart sursdffgery", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Castle"}, "starttime": "2014-11-22 01:00:00+00:00", "flagged": false}]')//Temp
-        console.log(result)
-
-        var lastTime = 0;
-
-        $.each(result, function(i, field){ 
-
-          var endTime = field.endtime.slice(11,16).split(":");
-          var endTimeMinutes = endTime[0]*60 + endTime[1]
-
-          var startTime = field.starttime.slice(11,16).split(":")
-          var startTimeMinutes = startTime[0]*60 + startTime[1]
+        // var result = JSON.parse('[{"patient": {"id": 2, "name": "Janet Weiss"}, "event_type": {"color": "3399FF", "id": 1, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 01:00:00+00:00", "id": 1, "description": "Open heart surgery.", "name": "heart surgery", "notes": "", "location": {"description": "Cardiac Surgery", "id": 2, "name": "Rm: 10-250"}, "starttime": "2014-11-22 00:00:00+00:00", "flagged": false},         {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "9933FF", "id": 3, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 05:00:00+00:00", "id": 2, "description": "Open heart surgery.", "name": "CT Scan", "notes": "", "location": {"description": "Dr. Frank N. Furter\'s castle", "id": 2, "name": "Rm: 26-100"}, "starttime": "2014-11-22 04:00:00+00:00", "flagged": false},            {"patient": {"id": 3, "name": "Janet Weiss"}, "event_type": {"color": "3939FF", "id": 4, "name": "Surgery"}, "duration": 3600, "endtime": "2014-11-22 09:00:00+00:00", "id": 3, "description": "Open heart surgery.", "name": "x-Rays", "notes": "", "location": {"description": "CT Scan", "id": 2, "name": "Rm: 32-123"}, "starttime": "2014-11-22 06:00:00+00:00", "flagged": false}]')//Temp
+        
 
 
-          var timeSinceLastEvent = startTimeMinutes - lastTime
-
-
-          console.log(field.name)
-          console.log(startTimeMinutes)
-          console.log(lastTime)
-
-          //Make button
-          var html ='<a  class="waves-effect btn-large time-block modal-trigger" id="event'+field.id +'" href="#' +field.id +' ">'+ field.name +' | ' + field.location.name + '</a>'
-          $('#events').append(html).hide()
-
-          $('#event'+field.id).css("background-color",field.event_type.color)
-          $('#event'+field.id).css("height", field.duration/(60)*.65 +'px')
-          $('#event'+field.id).css("margin-top", timeSinceLastEvent/(60)*.67 +10 +'px')
-          console.log(timeSinceLastEvent/(60)*.65)
-
-
-          //Make Modal for description
-          var modalhtml = '<div id="'+ field.id +'" class="modal">  <h4>' + field.name + ' | ' + field.location.description +'</h4> <p> '+field.description + '</p><a href="#" class="waves-effect btn flat modal_close"> Close</a> </div>'
-
-          $('#cal').append(modalhtml)
-          lastTime = endTimeMinutes;
-
-      }); 
       }
 
       var d = new Date(); 
@@ -187,14 +186,9 @@
         // });
 
         currentDate = d.getMonth()+1 +'/'+ d.getDate() + '/' + d.getFullYear()
-        $("#date").html("Date <br>  " + currentDate)
+        $("#date").html( currentDate)
         populateCal(currentDate)
 
-
-
-        $("#events").fadeIn(); 
-        //for events
-        $('.modal-trigger').leanModal();
 
 
       });

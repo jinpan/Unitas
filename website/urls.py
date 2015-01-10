@@ -14,5 +14,7 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', auth_views.login),
     url(r'^accounts/login2/$', core_views.login),
 
+    url(r'^patient_view', core_views.patient_view),
+
     url(r'^api/', include(core_urls)),
 )
